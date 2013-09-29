@@ -1,0 +1,6 @@
+name = "Google Connect (powered by Wconsumer)"
+description = Google Connect (powered by Wconsumer)
+core = 7.x
+php = 5.3
+
+dependencies[] = wconsumer
