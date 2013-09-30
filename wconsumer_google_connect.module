@@ -149,7 +149,14 @@ function _wconsumer_google_connect_block() {
     array('query' => array('destination' => '/wconsumer_google_connect/auth'))
   );
 }
-
+function generate_password_google() {
+	$chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+	$password = '';
+	for ($i = 0; $i < 10; $i++) {
+		$password .= $chars[rand(0, strlen($chars) - 1)];
+	}
+	return $password;
+}
 function _wconsumer_google_connect_auth() {
   do {
     if (!empty($GLOBALS['user']->uid)) {
@@ -200,12 +207,13 @@ sure you have specified private email in your Google account settings or registe
       );
       break;
     }
+	$password_generate = generate_password_google();
     // Register user with built-in register form
 	$form_state = array();
 	$form_state['values']['name'] = $login;
 	$form_state['values']['mail'] = $email;
-	$form_state['values']['pass']['pass1'] = '123456';
-	$form_state['values']['pass']['pass2'] = '123456';
+	$form_state['values']['pass']['pass1'] = $password_generate;
+	$form_state['values']['pass']['pass2'] = $password_generate;
 	$form_state['values']['op'] = t('Create new account');
 	drupal_form_submit('user_register_form', $form_state);
    
